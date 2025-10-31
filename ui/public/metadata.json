@@ -1,7 +1,7 @@
 {
-  "name": "ERPNEXT",
+  "name": "FRAPPEPRESS",
   "description": {
-    "en": "The most agile ERP on the planet: ERPNext is the world's best free and open source ERP"
+    "en": "A powerful open source platform for building business applications: Frappe Press supports ERP, blogging, CRM, and more"
   },
   "categories": ["office"],
   "authors": [
@@ -11,9 +11,9 @@
     }
   ],
   "docs": {
-    "documentation_url": "https://docs.erpnext.com/",
+    "documentation_url": "https://frappeframework.com/docs/",
     "bug_url": "https://github.com/geniusdynamic/dev",
-    "code_url": "https://github.com/geniusdynamics/ns8-erpnext"
+    "code_url": "https://github.com/geniusdynamics/ns8-frappe-press"
   },
-  "source": "ghcr.io/geniusdynamics/erpnext"
+  "source": "ghcr.io/geniusdynamics/frappe-press"
 }

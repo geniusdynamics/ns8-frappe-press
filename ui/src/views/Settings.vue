@@ -24,8 +24,8 @@
         <cv-tile light>
           <cv-form @submit.prevent="configureModule">
             <cv-text-input
-              :label="$t('settings.erpnext_fqdn')"
-              placeholder="erpnext.example.org"
+              :label="$t('settings.frappe_fqdn')"
+              placeholder="frappe.example.org"
               v-model.trim="host"
               class="mg-bottom"
               :invalid-message="$t(error.host)"

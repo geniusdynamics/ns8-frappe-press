@@ -19,23 +19,23 @@
     "no_services": "No services",
     "no_images": "No images",
     "no_volumes": "No volumes",
-    "webapp": "ERPNEXT Webapp",
-    "open_webapp": "Open ERPNEXT",
-    "not_configured":"ERPNEXT is not configured",
+    "webapp": "FRAPPEPRESS Webapp",
+    "open_webapp": "Open FRAPPEPRESS",
+    "not_configured":"FRAPPEPRESS is not configured",
     "configure": "Configure"
   },
   "settings": {
     "title": "Settings",
     "configure_instance": "Configure {instance}",
     "save": "Save",
-    "erpnext_fqdn": "ErpNext hostname (FQDN)",
+    "frappe_fqdn": "Frappe Press hostname (FQDN)",
     "lets_encrypt": "Request LE Certificate",
     "http_to_https": "Force HTTPS",
     "enabled": "Enabled",
     "disabled": "Disabled",
     "advanced": "Advanced",
     "configuring": "Configuring",
-    "instance_configuration": "Configure ErpNext",
+    "instance_configuration": "Configure Frappe Press",
     "domain_already_used_in_traefik": "Domain already used in traefik"
   },
   "about": {
