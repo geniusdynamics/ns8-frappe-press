@@ -13,9 +13,9 @@ images=()
 # The image will be pushed to GitHub container registry
 repobase="${REPOBASE:-ghcr.io/geniusdynamics}"
 # Configure the image name
-reponame="erpnext"
+reponame="frappe-press"
 
-app_version="15.83.2"
+app_version="0.3.0"
 
 # Create a new empty container image
 container=$(buildah from scratch)
