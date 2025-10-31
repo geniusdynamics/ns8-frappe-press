@@ -1,8 +1,8 @@
-# NS8 ERPNext
+# NS8 Frappe Press
 
-[![Build and test module](https://github.com/geniusdynamics/ns8-erp-next/actions/workflows/test-module.yml/badge.svg)](https://github.com/geniusdynamics/ns8-erp-next/actions/workflows/test-module.yml)
+[![Build and test module](https://github.com/geniusdynamics/ns8-frappe-press/actions/workflows/test-module.yml/badge.svg)](https://github.com/geniusdynamics/ns8-frappe-press/actions/workflows/test-module.yml)
 
-A comprehensive ERP (Enterprise Resource Planning) solution for NethServer 8, powered by [ERPNext](https://erpnext.com/) - the world's best 100% open source ERP software.
+A comprehensive platform for NethServer 8, powered by [Frappe Press](https://frappepress.com/) - a powerful open source platform for building business applications, including ERP, blogging, and more.
 
 ## 📋 Table of Contents
 
@@ -10,7 +10,7 @@ A comprehensive ERP (Enterprise Resource Planning) solution for NethServer 8, po
 - [Features](#features)
 - [Installation](#installation)
 - [Configuration](#configuration)
-- [Available ERPNext Modules](#available-erpnext-modules)
+- [Available Frappe Apps](#available-frappe-apps)
 - [Management](#management)
 - [Advanced Usage](#advanced-usage)
 - [Backup & Restore](#backup--restore)
@@ -21,11 +21,12 @@ A comprehensive ERP (Enterprise Resource Planning) solution for NethServer 8, po
 
 ## 🎯 Overview
 
-NS8 ERPNext is a containerized NethServer 8 application that provides a complete business management solution. Built on the robust Frappe framework, ERPNext offers modules for accounting, inventory management, CRM, human resources, manufacturing, and much more.
+NS8 Frappe Press is a containerized NethServer 8 application that provides a complete platform for business applications. Built on the robust Frappe framework, Frappe Press offers apps for accounting, inventory management, CRM, human resources, manufacturing, blogging, newsletters, and much more.
 
 ### Architecture
 
 The module consists of several interconnected services:
+
 - **Frontend**: Nginx web server serving the ERPNext web interface
 - **Backend**: Frappe/ERPNext application server
 - **Database**: MariaDB for data persistence
@@ -36,7 +37,7 @@ The module consists of several interconnected services:
 
 ## ✨ Features
 
-- 🏢 **Complete ERP Solution**: Accounting, inventory, CRM, HR, manufacturing, and more
+- 🏢 **Business Applications Platform**: Accounting, inventory, CRM, HR, manufacturing, blogging, newsletters, and more
 - 🔒 **SSL/TLS Support**: Automatic Let's Encrypt certificate generation
 - 🌐 **Multi-language Support**: Available in German, English, Spanish, and Portuguese
 - 📊 **Custom Module Selection**: Choose which ERPNext modules to install
@@ -56,15 +57,16 @@ The module consists of several interconnected services:
 ### Install the Module
 
 ```bash
-add-module ghcr.io/geniusdynamics/erpnext:latest 1
+add-module ghcr.io/geniusdynamics/frappe-press:latest 1
 ```
 
 The output will return the instance name:
+
 ```json
 {
-  "module_id": "erpnext1", 
-  "image_name": "erpnext", 
-  "image_url": "ghcr.io/geniusdynamics/erpnext:latest"
+  "module_id": "frappepress1",
+  "image_name": "frappe-press",
+  "image_url": "ghcr.io/geniusdynamics/frappe-press:latest"
 }
 ```
 
@@ -74,23 +76,23 @@ Configure your ERPNext instance using the NethServer web interface or API:
 
 ### Web Interface Configuration
 
-1. Navigate to **Applications > ERPNext**
+1. Navigate to **Applications > Frappe Press**
 2. Click **Settings**
 3. Configure the following:
-   - **Hostname (FQDN)**: Your domain name (e.g., `erp.company.com`)
-   - **Let's Encrypt Certificate**: Enable for automatic SSL
-   - **Force HTTPS**: Redirect HTTP to HTTPS
-   - **ERPNext Modules**: Select modules to install
+    - **Hostname (FQDN)**: Your domain name (e.g., `frappe.company.com`)
+    - **Let's Encrypt Certificate**: Enable for automatic SSL
+    - **Force HTTPS**: Redirect HTTP to HTTPS
+    - **Frappe Apps**: Select apps to install
 
 ### API Configuration
 
 ```bash
-api-cli run configure-module --agent module/erpnext1 --data - <<EOF
+api-cli run configure-module --agent module/frappepress1 --data - <<EOF
 {
-  "host": "erp.company.com",
+  "host": "frappe.company.com",
   "http2https": true,
   "lets_encrypt": true,
-  "erpSelectedModules": ["erpnext", "hrms"]
+  "frappeSelectedApps": ["press", "erpnext"]
 }
 EOF
 ```
@@ -102,23 +104,28 @@ EOF
 | `host` | string | Fully qualified domain name | Required |
 | `http2https` | boolean | Enable HTTP to HTTPS redirection | `false` |
 | `lets_encrypt` | boolean | Enable Let's Encrypt certificate | `false` |
-| `erpSelectedModules` | array | List of ERPNext modules to install | `[]` |
+| `frappeSelectedApps` | array | List of Frappe apps to install | `[]` |
 
-## 📦 Available ERPNext Modules
+## 📦 Available Frappe Apps
 
-The following modules can be selected during configuration:
+The following apps can be selected during configuration:
 
-### Core Modules
+### Core Apps
+
+- **Press** (`press`) - Blogging and content management platform
+
 - **ERPNext** (`erpnext`) - Core ERP functionality
 - **HRMS** (`hrms`) - Human Resource Management System
 
 ### Specialized Modules
+
 - **Education** (`education`) - Educational institution management
 - **Employee Self Service** (`employee_self_service`) - Employee portal
 - **Expenses** (`erpnext_expenses`) - Expense management
 - **Payments** (`payments`) - Payment processing
 
 ### Regional & Integration Modules
+
 - **Paystack** (`frappe_paystack`) - Paystack payment gateway
 - **M-Pesa Payments** (`frappe_mpsa_payments`) - Mobile money integration
 - **Kenya Compliance** (`kenya_compliance`) - Kenyan tax compliance
@@ -129,22 +136,23 @@ The following modules can be selected during configuration:
 ### Get Current Configuration
 
 ```bash
-api-cli run get-configuration --agent module/erpnext1
+api-cli run get-configuration --agent module/frappepress1
 ```
 
 ### Update Module
 
 ```bash
 api-cli run update-module --data '{
-  "module_url": "ghcr.io/geniusdynamics/erpnext:latest",
-  "instances": ["erpnext1"],
+  "module_url": "ghcr.io/geniusdynamics/frappe-press:latest",
+  "instances": ["frappepress1"],
   "force": true
 }'
 ```
 
-### Access ERPNext Interface
+### Access Frappe Press Interface
 
 After configuration, access your ERPNext instance at:
+
 ```
 https://your-domain.com
 ```
@@ -153,13 +161,14 @@ Default administrator credentials will be provided during the initial setup proc
 
 ## 🛠️ Advanced Usage
 
-### Running ERPNext Bench Commands
+### Running Frappe Bench Commands
 
-ERPNext provides extensive command-line tools for management. Access them via:
+Frappe provides extensive command-line tools for management. Access them via:
 
 1. **SSH into the module container**:
+
    ```bash
-   ssh erpnext1@localhost
+    ssh frappepress1@localhost
    ```
 
 2. **Execute bench commands**:
@@ -172,32 +181,33 @@ ERPNext provides extensive command-line tools for management. Access them via:
 
 ### Common Bench Commands
 
-| Command | Description |
-|---------|-----------|
+| Command           | Description                 |
+| ----------------- | --------------------------- |
 | `bench list-apps` | List installed applications |
-| `bench migrate` | Run database migrations |
-| `bench update` | Update the system |
-| `bench backup` | Create system backup |
-| `bench restore` | Restore from backup |
-| `bench new-site` | Create new site |
+| `bench migrate`   | Run database migrations     |
+| `bench update`    | Update the system           |
+| `bench backup`    | Create system backup        |
+| `bench restore`   | Restore from backup         |
+| `bench new-site`  | Create new site             |
 
 For complete command reference, see the [Frappe Bench Documentation](https://frappeframework.com/docs/user/en/bench/reference).
 
 ### Environment Variables
 
-The module uses several environment variables stored in `/home/erpnext1/.config/state/`:
+The module uses several environment variables stored in `/home/frappepress1/.config/state/`:
 
 - `TRAEFIK_HOST` - Configured hostname
 - `TRAEFIK_HTTP2HTTPS` - HTTPS redirect setting
 - `TRAEFIK_LETS_ENCRYPT` - Let's Encrypt status
 - `TCP_PORT` - Assigned TCP port
-- `ERP_NEXT_MODULES` - Selected modules
+- `FRAPPE_APPS` - Selected apps
 
 ## 💾 Backup & Restore
 
 ### Automatic Backups
 
 The module integrates with NethServer's backup system. Backups include:
+
 - ERPNext database
 - File attachments
 - Configuration files
@@ -206,14 +216,15 @@ The module integrates with NethServer's backup system. Backups include:
 ### Manual Backup
 
 Create a manual backup:
+
 ```bash
-api-cli run app-backup --agent module/erpnext1
+api-cli run app-backup --agent module/frappepress1
 ```
 
 ### Restore from Backup
 
 ```bash
-api-cli run restore-backup --agent module/erpnext1 --data '{
+api-cli run restore-backup --agent module/frappepress1 --data '{
   "repository": "backup-repo-name",
   "path": "backup-path"
 }'
@@ -226,13 +237,15 @@ api-cli run restore-backup --agent module/erpnext1 --data '{
 Enable debug mode for troubleshooting:
 
 1. **Check module environment**:
+
    ```bash
-   runagent -m erpnext1 env
+    runagent -m frappepress1 env
    ```
 
 2. **Enter debug shell**:
+
    ```bash
-   runagent -m erpnext1
+    runagent -m frappepress1
    ```
 
 3. **View container logs**:
@@ -245,15 +258,18 @@ Enable debug mode for troubleshooting:
 ### Common Issues
 
 #### Service Not Starting
+
 - Check container status: `podman ps`
 - Verify port availability: `netstat -tlnp | grep ${TCP_PORT}`
 - Review logs: `journalctl --user -u erp-next.service`
 
 #### Database Connection Issues
+
 - Verify MariaDB service: `systemctl --user status mariadb-app.service`
 - Check database logs: `podman logs mariadb-app`
 
 #### SSL Certificate Problems
+
 - Verify DNS resolution
 - Check Let's Encrypt rate limits
 - Review Traefik logs
@@ -261,6 +277,7 @@ Enable debug mode for troubleshooting:
 ### Service Management
 
 Control individual services:
+
 ```bash
 # Start/stop main service
 systemctl --user start erp-next.service
@@ -277,7 +294,7 @@ systemctl --user restart mariadb-app.service
 To completely remove the ERPNext instance:
 
 ```bash
-remove-module --no-preserve erpnext1
+remove-module --no-preserve frappepress1
 ```
 
 ⚠️ **Warning**: This will permanently delete all data. Ensure you have backups before proceeding.
@@ -287,10 +304,11 @@ remove-module --no-preserve erpnext1
 Run the test suite:
 
 ```bash
-./test-module.sh <NODE_ADDR> ghcr.io/geniusdynamics/erpnext:latest
+./test-module.sh <NODE_ADDR> ghcr.io/geniusdynamics/frappe-press:latest
 ```
 
 Tests are implemented using [Robot Framework](https://robotframework.org/) and validate:
+
 - Module installation
 - Configuration
 - Service startup
@@ -333,10 +351,10 @@ See [UI Development Guide](ui/README.md) for detailed instructions.
 ### Module Structure
 
 ```
-ns8-erpnext/
+ns8-frappe-press/
 ├── imageroot/               # Module runtime files
 │   ├── actions/            # API actions
-│   ├── bin/               # Executable scripts  
+│   ├── bin/               # Executable scripts
 │   ├── systemd/           # Service definitions
 │   └── events/            # Event handlers
 ├── ui/                    # Web interface
@@ -361,17 +379,17 @@ The module supports multiple languages through [Weblate](https://hosted.weblate.
 
 - 🇬🇧 English (default)
 - 🇩🇪 German
-- 🇪🇸 Spanish  
+- 🇪🇸 Spanish
 - 🇵🇹 Portuguese
 
 To contribute translations, visit the [Weblate project page](https://hosted.weblate.org/projects/ns8/).
 
 ## 📚 Additional Resources
 
-- [ERPNext Documentation](https://docs.erpnext.com/)
+- [Frappe Documentation](https://frappeframework.com/docs/)
 - [Frappe Framework Guide](https://frappeframework.com/docs/)
 - [NethServer 8 Documentation](https://nethserver.github.io/ns8-core/)
-- [ERPNext Community Forum](https://discuss.erpnext.com/)
+- [Frappe Community Forum](https://discuss.frappe.io/)
 
 ## 📄 License
 
@@ -381,11 +399,11 @@ This project is licensed under the [GPL-3.0 License](LICENSE).
 
 - **Community Support**: [NethServer Community](https://community.nethserver.org/)
 - **Documentation**: [NethServer Docs](https://docs.nethserver.org/)
-- **Bug Reports**: [GitHub Issues](https://github.com/geniusdynamics/ns8-erp-next/issues)
+- **Bug Reports**: [GitHub Issues](https://github.com/geniusdynamics/ns8-frappe-press/issues)
 
 ---
 
 <div align="center">
   <strong>Built with ❤️ for the NethServer Community</strong><br>
-  <sub>ERPNext • NethServer 8 • Open Source ERP</sub>
+  <sub>Frappe Press • NethServer 8 • Open Source Platform</sub>
 </div>
