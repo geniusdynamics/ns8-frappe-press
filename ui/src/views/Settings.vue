@@ -61,32 +61,12 @@
                 $t("settings.enabled")
               }}</template>
             </cv-toggle>
-            <div>Selected Modules: {{ erpSelectedModules }}</div>
-            <cv-multi-select
-              :label="'ERP Next Modules to be installed'"
-              :options="erpNextModules"
-              :title="'ERP Next Modules to be installed'"
-              v-model="erpSelectedModules"
-            >
-            </cv-multi-select>
+
             <!-- advanced options -->
             <cv-accordion ref="accordion" class="maxwidth mg-bottom">
               <cv-accordion-item :open="toggleAccordion[0]">
                 <template slot="title">{{ $t("settings.advanced") }}</template>
-                <template slot="content">
-                  <div v-for="module in erpNextModules" :key="module.value">
-                    <cv-toggle
-                      :label="module.value"
-                      :value="module.value"
-                      v-model="erpSelectedModules"
-                      :disabled="
-                        loading.getConfiguration || loading.configureModule
-                      "
-                      class="mg-bottom"
-                    >
-                    </cv-toggle>
-                  </div>
-                </template>
+                <template slot="content"> </template>
               </cv-accordion-item>
             </cv-accordion>
             <cv-row v-if="error.configureModule">
@@ -146,199 +126,7 @@ export default {
       isLetsEncryptEnabled: false,
       isHttpToHttpsEnabled: true,
       hasBackup: false,
-      erpNextModules: [
-        {
-          label: "ERPNext",
-          value: "erpnext",
-          name: "erpnext",
-          disabled: false,
-        },
-        { label: "HRMS", value: "hrms", name: "hrms", disabled: false },
-        {
-          label: "Education",
-          value: "education",
-          name: "education",
-          disabled: false,
-        },
-        {
-          label: "Employee Self Service",
-          value: "employee_self_service",
-          name: "employee_self_service",
-          disabled: false,
-        },
-        {
-          label: "Expenses",
-          value: "erpnext_expenses",
-          name: "erpnext_expenses",
-          disabled: false,
-        },
-        {
-          label: "payments",
-          value: "payments",
-          name: "payments",
-          disabled: false,
-        },
-        {
-          label: "Paystack",
-          value: "frappe_paystack",
-          name: "frappe_paystack",
-          disabled: false,
-        },
-        {
-          label: "Mpesa Payments",
-          value: "frappe_mpsa_payments",
-          name: "frappe-mpesa-payments",
-          disabled: false,
-        },
-        {
-          label: "KE Etims Compliance",
-          value: "kenya_compliance",
-          name: "kenya-compliance",
-          disabled: false,
-        },
-        {
-          label: "Whatsapp",
-          value: "frappe_whatsapp",
-          name: "whatsapp_chat",
-          disabled: false,
-        },
-        {
-          label: "PibiDav",
-          value: "pibidav",
-          name: "pibiDAV",
-          disabled: false,
-        },
-        {
-          label: "PibiCard",
-          value: "pibicard",
-          name: "pibicard",
-          disabled: false,
-        },
-        {
-          label: "Pibicut",
-          value: "pibicut",
-          name: "pibicut",
-          disabled: false,
-        },
-        {
-          label: "Lending",
-          value: "lending",
-          name: "lending",
-          disabled: false,
-        },
-        { label: "Etims", value: "etims", name: "Etims", disabled: false },
-        {
-          label: "Utility Billing",
-          value: "utility-billing",
-          name: "utility-billing",
-          disabled: false,
-        },
-        {
-          label: "PibiCal",
-          value: "pibical",
-          name: "pibical",
-          disabled: false,
-        },
-        {
-          label: "ProjectIT",
-          value: "projectit",
-          name: "ProjectIT",
-          disabled: false,
-        },
-        {
-          label: "Junior School",
-          value: "junior-school",
-          name: "Junior-School",
-          disabled: false,
-        },
-        {
-          label: "Print Designer",
-          value: "print_designer",
-          name: "print_designer",
-          disabled: false,
-        },
-        { label: "Beam Barcode", value: "beam", name: "beam", disabled: false },
-        {
-          label: "QR CODE",
-          value: "frappe_qrcode",
-          name: "Frappe-QR-Code",
-          disabled: false,
-        },
-        {
-          label: "PDF on submit",
-          value: "pdf_on_submit",
-          name: "erpnext_pdf-on-submit",
-          disabled: false,
-        },
-        {
-          label: "Whitelabel",
-          value: "whitelabel",
-          name: "whitelabel",
-          disabled: false,
-        },
-        {
-          label: "Cloud Storage",
-          value: "cloud_storage",
-          name: "cloud_storage",
-          disabled: false,
-        },
-        {
-          label: "Check Run",
-          value: "check_run",
-          name: "check_run",
-          disabled: false,
-        },
-        {
-          label: "Inventory tools",
-          value: "inventory_tools",
-          name: "inventory_tools",
-          disabled: false,
-        },
-        {
-          label: "POS Awesome",
-          value: "posawesome",
-          name: "POS-Awesome",
-          disabled: false,
-        },
-        { label: "GetPOS", value: "getpos", name: "GETPOS", disabled: false },
-        { label: "PropMS", value: "propms", name: "PropMS", disabled: false },
-        { label: "LMS (SA)", value: "lms", name: "lms", disabled: false },
-        { label: "Wiki (SA)", value: "wiki", name: "wiki", disabled: false },
-        {
-          label: "Helpdesk (SA)",
-          value: "helpdesk",
-          name: "helpdesk",
-          disabled: false,
-        },
-        {
-          label: "Insights (SA)",
-          value: "insights",
-          name: "insights",
-          disabled: false,
-        },
-        {
-          label: "Builder (SA)",
-          value: "builder",
-          name: "builder",
-          disabled: false,
-        },
-        { label: "CRM (SA)", value: "crm", name: "crm", disabled: false },
-        { label: "Raven (SA)", value: "raven", name: "raven", disabled: false },
-        {
-          label: "Gameplan (SA)",
-          value: "gameplan",
-          name: "gameplan",
-          disabled: false,
-        },
-        { label: "Drive (SA)", value: "drive", name: "drive", disabled: false },
-        {
-          label: "Webshop",
-          value: "webshop",
-          name: "webshop",
-          disabled: false,
-        },
-      ],
-      erpSelectedModules: [],
+
       loading: {
         getConfiguration: false,
         configureModule: false,
@@ -416,7 +204,6 @@ export default {
       this.host = config.host;
       this.isLetsEncryptEnabled = config.lets_encrypt;
       this.isHttpToHttpsEnabled = config.http2https;
-      this.erpSelectedModules = config.erpSelectedModules;
       this.hasBackup = config.hasBackup;
       console.log("Has Backup: " + this.hasBackup);
 
@@ -479,7 +266,6 @@ export default {
             host: this.host,
             lets_encrypt: this.isLetsEncryptEnabled,
             http2https: this.isHttpToHttpsEnabled,
-            erpSelectedModules: this.erpSelectedModules,
           },
           extra: {
             title: this.$t("settings.instance_configuration", {
