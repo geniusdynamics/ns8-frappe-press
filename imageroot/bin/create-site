@@ -38,3 +38,4 @@ bench --site frontend install-app press
 # 	done
 # fi
 bench --site frontend migrate
+pip3 install certbot-dns-route53
