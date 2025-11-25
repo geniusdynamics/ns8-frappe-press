@@ -20,7 +20,7 @@ ExecStart=/usr/bin/podman run --conmon-pidfile %t/queue-sync.pid \
     -v docker-builds:/home/frappe/frappe-bench/.docker-builds:Z \
     -v clones:/home/frappe/frappe-bench/.clones:Z \
     -v %S/state/.ssh/:/home/frappe/.ssh/:Z \
-    ${PRESS_IMAGE} bench worker-pool --num-workers 6 --queue sync,default,short,long
+    ${PRESS_IMAGE} bench worker --queue sync,default,short,long
 ExecStop=/usr/bin/podman stop --ignore --cidfile %t/queue-sync.ctr-id -t 10
 ExecReload=/usr/bin/podman kill -s HUP queue-sync
 SyslogIdentifier=%u
