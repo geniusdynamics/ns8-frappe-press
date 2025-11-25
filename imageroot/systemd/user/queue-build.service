@@ -16,7 +16,10 @@ ExecStart=/usr/bin/podman run --conmon-pidfile %t/queue-build.pid \
      --pod-id-file %t/erp-next.pod-id --replace -d --name queue-build \
     -v sites:/home/frappe/frappe-bench/sites \
     -v logs:/home/frappe/frappe-bench/logs \
-    -v ~/.ssh/:/home/frappe/.ssh/:Z \
+    -v certbot:/home/frappe/frappe-bench/.certbot:Z \
+    -v docker-builds:/home/frappe/frappe-bench/.docker-builds:Z \
+    -v clones:/home/frappe/frappe-bench/.clones:Z \
+    -v %S/state/.ssh/:/home/frappe/.ssh/:Z \
     ${PRESS_IMAGE} bench worker --num-workers 8 --queue build
 ExecStop=/usr/bin/podman stop --ignore --cidfile %t/queue-build.ctr-id -t 10
 ExecReload=/usr/bin/podman kill -s HUP queue-build
