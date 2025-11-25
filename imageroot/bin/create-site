@@ -20,7 +20,6 @@ until [[ -n $(grep -hs ^ sites/common_site_config.json | jq -r ".db_host // empt
 done
 echo "sites/common_site_config.json found"
 bench new-site frontend --no-mariadb-socket --admin-password=admin --db-root-password="$MARIADB_ROOT_PASSWORD" --set-default
-bench --site frontend enable-scheduler
 bench --site frontend install-app press
 bench --site frontend migrate
 pip3 install certbot-dns-route53
