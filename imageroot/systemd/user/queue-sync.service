@@ -1,0 +1,29 @@
+# queue-sync.service
+
+[Unit]
+Description=Podman queue-sync.service
+Wants=erp-next.service
+After=erp-next.service  redis-cache.service mariadb-app.service  configurator.service create-site.service frontend.service
+
+[Service]
+Environment=PODMAN_SYSTEMD_UNIT=%n
+EnvironmentFile=%S/state/environment
+Restart=always
+TimeoutStopSec=70
+ExecStartPre=/bin/rm -f %t/queue-sync.pid %t/queue-sync.ctr-id
+ExecStart=/usr/bin/podman run --conmon-pidfile %t/queue-sync.pid \
+    --cidfile %t/queue-sync.ctr-id --cgroups=no-conmon \
+     --pod-id-file %t/erp-next.pod-id --replace -d --name queue-sync \
+    -v sites:/home/frappe/frappe-bench/sites \
+    -v logs:/home/frappe/frappe-bench/logs \
+    -v ~/.ssh/:/home/frappe/.ssh/:Z \
+    ${PRESS_IMAGE} bench worker --num-workers 6 --queue sync,default,short,long
+ExecStop=/usr/bin/podman stop --ignore --cidfile %t/queue-sync.ctr-id -t 10
+ExecReload=/usr/bin/podman kill -s HUP queue-sync
+SyslogIdentifier=%u
+ExecStopPost=/usr/bin/podman rm --ignore -f --cidfile %t/queue-sync.ctr-id
+PIDFile=%t/queue-sync.pid
+Type=forking
+
+[Install]
+WantedBy=default.target
