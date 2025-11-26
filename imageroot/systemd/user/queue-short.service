@@ -20,7 +20,7 @@ ExecStart=/usr/bin/podman run --conmon-pidfile %t/queue-short.pid \
     -v clones:/home/frappe/frappe-bench/.clones:Z \
     -v %S/state/.ssh/:/home/frappe/.ssh/:Z \
     --env-file=%S/state/queue.env \
-    ${PRESS_IMAGE} bench worker  --queue short,default
+    ${PRESS_IMAGE} bench worker  --queue short,default,build
 ExecStop=/usr/bin/podman stop --ignore --cidfile %t/queue-short.ctr-id -t 10
 ExecReload=/usr/bin/podman kill -s HUP queue-short
 SyslogIdentifier=%u
