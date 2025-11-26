@@ -20,6 +20,7 @@ ExecStart=/usr/bin/podman run --conmon-pidfile %t/websocket.pid \
     -v docker-builds:/home/frappe/frappe-bench/.docker-builds:Z \
     -v clones:/home/frappe/frappe-bench/.clones:Z \
     -v %S/state/.ssh/:/home/frappe/.ssh/:Z \
+    --env-file=%S/state/queue.env \
     ${PRESS_IMAGE} node /home/frappe/frappe-bench/apps/frappe/socketio.js
 ExecStop=/usr/bin/podman stop --ignore --cidfile %t/websocket.ctr-id -t 10
 ExecReload=/usr/bin/podman kill -s HUP websocket
