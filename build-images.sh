@@ -15,7 +15,7 @@ repobase="${REPOBASE:-ghcr.io/geniusdynamics}"
 # Configure the image name
 reponame="frappe-press"
 
-app_version="0.10.0"
+app_version="0.11.0"
 
 # Create a new empty container image
 container=$(buildah from scratch)
