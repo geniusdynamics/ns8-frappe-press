@@ -48,4 +48,10 @@ erpnext_config = {
 }
 agent.write_envfile("configurator.env", erpnext_config)
 
+queue_config = {
+    "FRAPPE_REDIS_CACHE": "redis-cache:6379/0",
+    "FRAPPE_REDIS_QUEUE": "redis-cache:6379/1",
+}
+agent.write_envfile("queue.env", queue_config)
+
 # agent.dump_env()
