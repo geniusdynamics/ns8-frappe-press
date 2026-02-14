@@ -1,8 +1,7 @@
-# queue-long.service
+# queue-default.service
 
 [Unit]
-Description=Podman queue-long.service
-Wants=erp-next.service
+Description=Podman queue-default.service
 After=erp-next.service  redis-cache.service mariadb-app.service  configurator.service create-site.service frontend.service
 
 [Service]
@@ -10,10 +9,10 @@ Environment=PODMAN_SYSTEMD_UNIT=%n
 EnvironmentFile=%S/state/environment
 Restart=always
 TimeoutStopSec=70
-ExecStartPre=/bin/rm -f %t/queue-long.pid %t/queue-long.ctr-id
-ExecStart=/usr/bin/podman run --conmon-pidfile %t/queue-long.pid \
-    --cidfile %t/queue-long.ctr-id --cgroups=no-conmon \
-     --pod-id-file %t/erp-next.pod-id --replace -d --name queue-long \
+ExecStartPre=/bin/rm -f %t/queue-default.pid %t/queue-default.ctr-id
+ExecStart=/usr/bin/podman run --conmon-pidfile %t/queue-default.pid \
+    --cidfile %t/queue-default.ctr-id --cgroups=no-conmon \
+     --pod-id-file %t/erp-next.pod-id --replace -d --name queue-default \
     -v sites:/home/frappe/frappe-bench/sites \
     -v logs:/home/frappe/frappe-bench/logs \
     -v certbot:/home/frappe/frappe-bench/.certbot:Z \
@@ -21,12 +20,12 @@ ExecStart=/usr/bin/podman run --conmon-pidfile %t/queue-long.pid \
     -v clones:/home/frappe/frappe-bench/.clones:Z \
     -v %S/state/.ssh/:/home/frappe/.ssh/:Z \
     --env-file=%S/state/queue.env \
-    ${PRESS_IMAGE} bench worker  --queue long,default,short,build
-ExecStop=/usr/bin/podman stop --ignore --cidfile %t/queue-long.ctr-id -t 10
-ExecReload=/usr/bin/podman kill -s HUP queue-long
+    ${PRESS_IMAGE} bench worker --queue default,sync,build
+ExecStop=/usr/bin/podman stop --ignore --cidfile %t/queue-default.ctr-id -t 10
+ExecReload=/usr/bin/podman kill -s HUP queue-default
 SyslogIdentifier=%u
-ExecStopPost=/usr/bin/podman rm --ignore -f --cidfile %t/queue-long.ctr-id
-PIDFile=%t/queue-long.pid
+ExecStopPost=/usr/bin/podman rm --ignore -f --cidfile %t/queue-default.ctr-id
+PIDFile=%t/queue-default.pid
 Type=forking
 
 [Install]

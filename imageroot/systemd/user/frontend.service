@@ -1,5 +1,5 @@
 # frontend.service
-
+# Put SSH Keys in state folder
 [Unit]
 Description=Podman frontend.service
 BindsTo=erp-next.service
@@ -16,6 +16,10 @@ ExecStart=/usr/bin/podman run --conmon-pidfile %t/frontend.pid \
      --pod-id-file %t/erp-next.pod-id --replace -d --name frontend \
     -v sites:/home/frappe/frappe-bench/sites \
     -v logs:/home/frappe/frappe-bench/logs \
+    -v certbot:/home/frappe/frappe-bench/.certbot:Z \
+    -v docker-builds:/home/frappe/frappe-bench/.docker-builds:Z \
+    -v clones:/home/frappe/frappe-bench/.clones:Z \
+    -v %S/state/.ssh/:/home/frappe/.ssh/:Z \
     -e BACKEND=backend:8000 \
     -e FRAPPE_SITE_NAME_HEADER=frontend \
     -e SOCKETIO=websocket:9000 \
