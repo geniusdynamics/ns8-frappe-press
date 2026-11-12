@@ -10,7 +10,7 @@ After=erp-next.service redis-cache.service mariadb-app.service
 
 [Service]
 Environment=PODMAN_SYSTEMD_UNIT=%n
-EnvironmentFile=%S/state/environment
+EnvironmentFile=%E/state/environment
 TimeoutStopSec=70
 ExecStartPre=/bin/rm -f %t/configurator.pid %t/configurator.ctr-id
 ExecStart=/usr/bin/podman run --conmon-pidfile %t/configurator.pid \
@@ -19,7 +19,7 @@ ExecStart=/usr/bin/podman run --conmon-pidfile %t/configurator.pid \
     -v sites:/home/frappe/frappe-bench/sites \
     -v logs:/home/frappe/frappe-bench/logs \
     -v %S/bin/configurator:/configurator:Z \
-    --env-file=%S/state/configurator.env \
+    --env-file=%E/state/configurator.env \
     ${PRESS_IMAGE} /bin/bash -c "/configurator"
 ExecStop=/usr/bin/podman stop --ignore --cidfile %t/configurator.ctr-id -t 10
 ExecReload=/usr/bin/podman kill -s HUP configurator

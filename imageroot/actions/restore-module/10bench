@@ -12,4 +12,4 @@ set -e
 # Redirect any output to the journal (stderr)
 exec 1>&2
 
-podman exec frontend bench build
+podman exec frontend bench build

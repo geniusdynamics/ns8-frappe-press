@@ -15,5 +15,5 @@ jobs:
     steps:
       - uses: NethServer/ns8-github-actions/.github/actions/delete-image@v1
         with:
-          images: "erpnext"
-          delete_image_token: ${{ secrets.IMAGES_CLEANUP_TOKEN }}
+          images: "frappe-press"
+          delete_image_token: ${{ secrets.GITHUB_TOKEN }}

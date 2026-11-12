@@ -3,7 +3,9 @@
   "description": {
     "en": "A powerful open source platform for building business applications: Frappe Press supports ERP, blogging, CRM, and more"
   },
-  "categories": ["office"],
+  "categories": [
+    "office"
+  ],
   "authors": [
     {
       "name": "Genius Dynamics",
@@ -12,7 +14,7 @@
   ],
   "docs": {
     "documentation_url": "https://frappeframework.com/docs/",
-    "bug_url": "https://github.com/geniusdynamic/dev",
+    "bug_url": "https://github.com/geniusdynamics/ns8-frappe-press/issues",
     "code_url": "https://github.com/geniusdynamics/ns8-frappe-press"
   },
   "source": "ghcr.io/geniusdynamics/frappe-press"
