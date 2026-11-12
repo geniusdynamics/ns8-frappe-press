@@ -11,7 +11,6 @@ exec 1>&2
 
 # If the control reaches this step, the service can be enabled and started
 
-touch smarthost.env
 
 systemctl --user enable --now erp-next.service
 systemctl --user try-restart erp-next.service

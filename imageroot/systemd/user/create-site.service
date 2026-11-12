@@ -5,7 +5,7 @@ After=erp-next.service redis-cache.service mariadb-app.service websocket.service
 
 [Service]
 Environment=PODMAN_SYSTEMD_UNIT=%n
-EnvironmentFile=%S/state/environment
+EnvironmentFile=%E/state/environment
 TimeoutStopSec=70
 ExecStartPre=/bin/rm -f %t/create-site.pid %t/create-site.ctr-id
 ExecStart=/usr/bin/podman run --conmon-pidfile %t/create-site.pid \
@@ -14,8 +14,8 @@ ExecStart=/usr/bin/podman run --conmon-pidfile %t/create-site.pid \
     -v sites:/home/frappe/frappe-bench/sites \
     -v logs:/home/frappe/frappe-bench/logs \
     -v %S/bin/create-site:/create-site:Z \
-    --env-file=%S/state/database.env \
-    --env-file=%S/state/erpnext-modules.env \
+    --env-file=%E/state/database.env \
+    --env-file=%E/state/erpnext-modules.env \
      ${PRESS_IMAGE} /bin/bash -c "/create-site"
 ExecStop=/usr/bin/podman stop --ignore --cidfile %t/create-site.ctr-id -t 10
 ExecReload=/usr/bin/podman kill -s HUP create-site
