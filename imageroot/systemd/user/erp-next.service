@@ -16,7 +16,7 @@ Before=redis-cache.service mariadb-app.service scheduler.service backend.service
 
 [Service]
 Environment=PODMAN_SYSTEMD_UNIT=%n
-EnvironmentFile=-%S/state/environment
+EnvironmentFile=-%E/state/environment
 Restart=always
 TimeoutStopSec=70
 ExecStartPre=/bin/rm -f %t/erp-next.pid %t/erp-next.pod-id
