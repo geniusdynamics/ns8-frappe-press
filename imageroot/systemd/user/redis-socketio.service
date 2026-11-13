@@ -9,6 +9,7 @@ After=erp-next.service
 Environment=PODMAN_SYSTEMD_UNIT=%n
 EnvironmentFile=%E/state/environment
 Restart=always
+RestartSec=10
 TimeoutStopSec=70
 ExecStartPre=/bin/rm -f %t/redis-socketio.pid %t/redis-socketio.ctr-id
 ExecStart=/usr/bin/podman run --conmon-pidfile %t/redis-socketio.pid \
