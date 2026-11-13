@@ -2,6 +2,7 @@
 Library    SSHLibrary
 
 *** Variables ***
+${HOST}    .example.org
 ${ADMIN_USER}    admin
 ${ADMIN_PASSWORD}    Nethesis,1234
 ${module_id}    ${EMPTY}
@@ -40,12 +41,12 @@ Take screenshots
     Close Browser
 
 Check if frappe-press can be configured
-    ${rc} =    Execute Command    api-cli run module/${module_id}/configure-module --data '{}'
+    ${rc} =    Execute Command    api-cli run module/${module_id}/configure-module --data '{"host":"${HOST}","http2https":true,"lets_encrypt":false}'
     ...    return_rc=True  return_stdout=False
     Should Be Equal As Integers    ${rc}  0
 
 Check if frappe-press works as expected
-    ${rc} =    Execute Command    curl -f http://127.0.0.1/frappe-press/
+    ${rc} =    Execute Command    bash -c 'for i in $(seq 1 60); do curl -k -s -o /dev/null -f --resolve ${HOST}:443:127.0.0.1 https://${HOST}/ && exit 0; sleep 5; done; exit 1'
     ...    return_rc=True  return_stdout=False
     Should Be Equal As Integers    ${rc}  0
 
