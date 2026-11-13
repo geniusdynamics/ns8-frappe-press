@@ -1,7 +1,8 @@
 {
   "name": "FRAPPEPRESS",
   "description": {
-    "en": "A powerful open source platform for building business applications: Frappe Press supports ERP, blogging, CRM, and more"
+    "en": "A powerful open source platform for building business applications: Frappe Press supports ERP, blogging, CRM, and more",
+    "it": "Frappe Press è la piattaforma di Frappe Cloud per ospitare e gestire siti, bench e server Frappe ed ERPNext."
   },
   "categories": [
     "office"
