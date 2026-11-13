@@ -1,6 +1,9 @@
 *** Settings ***
 Library    SSHLibrary
 
+*** Variables ***
+${HOST}    frappe-press.example.org
+
 *** Test Cases ***
 Check if frappepress is installed correctly
     ${output}  ${rc} =    Execute Command    add-module ${IMAGE_URL} 1
