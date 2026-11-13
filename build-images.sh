@@ -19,7 +19,7 @@ reponame="frappe-press"
 corepack_version=0.36.0
 
 # renovate: datasource=docker packageName=docker.io/geniusdynamics/press
-app_version=0.3.0
+app_version=0.11.0
 
 # Create a new empty container image
 container=$(buildah from scratch)
