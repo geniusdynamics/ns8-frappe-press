@@ -10,6 +10,7 @@ Environment=PODMAN_SYSTEMD_UNIT=%n
 EnvironmentFile=%E/state/environment
 Restart=always
 TimeoutStopSec=70
+ExecStartPre=/bin/mkdir -p %S/state/.ssh
 ExecStartPre=/bin/rm -f %t/queue-long.pid %t/queue-long.ctr-id
 ExecStart=/usr/bin/podman run --conmon-pidfile %t/queue-long.pid \
     --cidfile %t/queue-long.ctr-id --cgroups=no-conmon \
