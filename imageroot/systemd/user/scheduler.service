@@ -8,7 +8,9 @@ After=erp-next.service redis-cache.service
 Environment=PODMAN_SYSTEMD_UNIT=%n
 EnvironmentFile=%E/state/environment
 Restart=always
+RestartSec=10
 TimeoutStopSec=70
+ExecStartPre=/bin/mkdir -p %S/state/.ssh
 ExecStartPre=/bin/rm -f %t/scheduler.pid %t/scheduler.ctr-id
 ExecStart=/usr/bin/podman run --conmon-pidfile %t/scheduler.pid \
     --cidfile %t/scheduler.ctr-id --cgroups=no-conmon \

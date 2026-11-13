@@ -12,7 +12,9 @@ After=erp-next.service redis-cache.service mariadb-app.service
 Environment=PODMAN_SYSTEMD_UNIT=%n
 EnvironmentFile=%E/state/environment
 Restart=always
+RestartSec=10
 TimeoutStopSec=70
+ExecStartPre=/bin/mkdir -p %S/state/.ssh
 ExecStartPre=/bin/rm -f %t/backend.pid %t/backend.ctr-id
 ExecStart=/usr/bin/podman run --conmon-pidfile %t/backend.pid \
     --cidfile %t/backend.ctr-id --cgroups=no-conmon \

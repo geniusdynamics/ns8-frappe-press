@@ -9,7 +9,9 @@ After=erp-next.service  redis-cache.service mariadb-app.service  configurator.se
 Environment=PODMAN_SYSTEMD_UNIT=%n
 EnvironmentFile=%S/state/environment
 Restart=always
+RestartSec=10
 TimeoutStopSec=70
+ExecStartPre=/bin/mkdir -p %S/state/.ssh
 ExecStartPre=/bin/rm -f %t/queue-build.pid %t/queue-build.ctr-id
 ExecStart=/usr/bin/podman run --conmon-pidfile %t/queue-build.pid \
     --cidfile %t/queue-build.ctr-id --cgroups=no-conmon \
